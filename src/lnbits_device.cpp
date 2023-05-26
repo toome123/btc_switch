@@ -7,11 +7,14 @@ namespace LnbitsDevice
         canBeInitialized = Config::lnbitsIsConfigured();
         if (canBeInitialized)
         {
-            
+            Serial.println("Init websocket");
             LnbitsDeviceConfig config = Config::getLnbitsDeviceConfig();
-            Serial.println(String(config.endPoint) + String(config.deviceId));
+            Serial.println(config.lnbitsServer);
+            Serial.println(config.endPoint);
             Serial.println(config.deviceId);
-            webSocket.beginSSL(config.lnbitsServer, 443, String(config.endPoint) + String(config.deviceId));
+            String test = String(config.endPoint) + String(config.deviceId);
+            Serial.println(test);
+            webSocket.beginSSL(config.lnbitsServer, 443, test);
             webSocket.onEvent(webSocketEvent);
             webSocket.setReconnectInterval(1000);
         }

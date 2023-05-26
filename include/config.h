@@ -10,18 +10,19 @@
 #include <ArduinoJson.h>
 
 struct LnbitsDeviceConfig{
-    char lnbitsServer[23];
-    char endPoint[12];
-    char deviceId[22];
+    String lnbitsServer;
+    String endPoint;
+    String deviceId;
 };
 
 namespace {
     int webPortalTimeout = 120;
     //Config pin button web portal
     #define TRIGGER_PIN 0
-    char lnbitsServer[23];
-    char endPoint[12] = "/api/v1/ws/";
-    char deviceId[22];
+    String fullLnbitsServerUrl;
+    String lnbitsServer;
+    String endPoint = "/api/v1/ws/";
+    String deviceId;
 
     //flag for saving data
     bool shouldSaveConfig = false;
