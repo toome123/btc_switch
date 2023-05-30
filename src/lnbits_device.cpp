@@ -22,6 +22,8 @@ namespace LnbitsDevice
 
     void loop()
     {
+        payloadStr = "";
+        delay(2000);
         while (paid == false)
         {
             webSocket.loop();
@@ -35,7 +37,6 @@ namespace LnbitsDevice
                 paid = false;
             }
         }
-        delay(2000);
     }
 
     String getValue(String data, char separator, int index)

@@ -61,6 +61,15 @@ namespace Config
         // Local intialization. Once its business is done, there is no need to keep it around
         WiFiManager wifiManager;
 
+        // The extra parameters to be configured (can be either global or just in the setup)
+        // After connecting, parameter.getValue() will get you the configured value
+        // id/name placeholder/prompt default length
+        char fullLnbitsServerUrlBuff[200];
+        fullLnbitsServerUrl.toCharArray(fullLnbitsServerUrlBuff, 200);
+        WiFiManagerParameter custom_lnbits_server("lnbitsserver", "Lnbits Server", fullLnbitsServerUrlBuff, 200);
+        // add all your parameters here
+        wifiManager.addParameter(&custom_lnbits_server);
+
         // set config save notify callback
         wifiManager.setSaveConfigCallback(saveConfigCallback);
 
@@ -76,12 +85,9 @@ namespace Config
             Serial.println("Unable to connect to WIFI");
         }
 
-
-        //TODO:parse fullLnbitsServerUrl to values
-        // Serial.println("The values in the file are: ");
-        // Serial.println("\tLnbits Server : " + lnbitsServer);
-        // Serial.println("\tEnd Point : " + endPoint);
-        // Serial.println("\tDevice Id : " + deviceId);
+        fullLnbitsServerUrl = custom_lnbits_server.getValue();
+        lnbitsServer = fullLnbitsServerUrl.substring(5, fullLnbitsServerUrl.length() - 33);
+        deviceId = fullLnbitsServerUrl.substring(fullLnbitsServerUrl.length() - 22);
 
         // save the custom parameters to FS
         if (shouldSaveConfig)
@@ -113,14 +119,6 @@ namespace Config
 
         Serial.println("local ip");
         Serial.println(WiFi.localIP());
-        // The extra parameters to be configured (can be either global or just in the setup)
-        // After connecting, parameter.getValue() will get you the configured value
-        // id/name placeholder/prompt default length
-        char fullLnbitsServerUrlBuff[fullLnbitsServerUrl.length()];
-        lnbitsServer.toCharArray(fullLnbitsServerUrlBuff, fullLnbitsServerUrl.length());
-        WiFiManagerParameter custom_lnbits_server("lnbitsserver", "Lnbits Server", fullLnbitsServerUrlBuff, fullLnbitsServerUrl.length());
-        // add all your parameters here
-        wifiManager.addParameter(&custom_lnbits_server);
         waitToStartConfigPortal();
     }
 
@@ -170,8 +168,8 @@ namespace Config
     {
         LnbitsDeviceConfig config;
         config.lnbitsServer = lnbitsServer;
-        config.endPoint = endPoint;
         config.deviceId = deviceId;
+        config.endPoint = endPoint;
         return config;
     }
 }
