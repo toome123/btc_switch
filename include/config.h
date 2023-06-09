@@ -8,6 +8,7 @@
   #include <SPIFFS.h>
 #endif
 #include <ArduinoJson.h>
+#include <WebSocketsClient.h>
 
 struct LnbitsDeviceConfig{
     String lnbitsServer;
