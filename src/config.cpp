@@ -73,6 +73,8 @@ namespace Config
         // set config save notify callback
         wifiManager.setSaveConfigCallback(saveConfigCallback);
 
+        wifiManager.setConnectTimeout(60);
+
         WiFi.mode(WIFI_STA);
         pinMode(TRIGGER_PIN, INPUT_PULLUP);
         bool isConnected = wifiManager.autoConnect("Bitcoin Device", "satoshi123");
