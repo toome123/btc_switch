@@ -9,6 +9,10 @@
 #endif
 #include <ArduinoJson.h>
 #include <WebSocketsClient.h>
+#ifdef ESP8266
+    #include <Hash.h>
+#endif
+
 
 struct LnbitsDeviceConfig{
     String lnbitsServer;

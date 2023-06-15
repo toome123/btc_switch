@@ -14,7 +14,7 @@ namespace LnbitsDevice
             Serial.println(config.deviceId);
             String test = String(config.endPoint) + String(config.deviceId);
             Serial.println(test);
-            webSocket.beginSSL(config.lnbitsServer, 443, test);
+            webSocket.beginSSL(config.lnbitsServer.c_str(), 443, test.c_str());
             webSocket.onEvent(webSocketEvent);
             webSocket.setReconnectInterval(1000);
         }
