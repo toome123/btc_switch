@@ -4,12 +4,12 @@ namespace Config
 {
     void init()
     {
+        delay(1000);
         // clean FS, for testing
         //SPIFFS.format();
 
         // read configuration from FS json
         Serial.println("mounting FS...");
-
         if (SPIFFS.begin())
         {
             Serial.println("mounted file system");
