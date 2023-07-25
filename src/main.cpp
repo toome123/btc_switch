@@ -75,6 +75,7 @@ void waitToStartConfigPortal()
     while (currentTime - startTime < configPortalTimePeriod)
     {
         currentTime = millis();
+        delay(100);
         if (digitalRead(TRIGGER_PIN) == LOW)
         {
             WiFiManager wifiManager;
@@ -274,7 +275,6 @@ void setup()
     canBeInitialized = lnbitsIsConfigured();
     if (canBeInitialized)
     {
-        Serial.println("IN canBeInitialized");
         Serial.println("Init websocket");
         Serial.println(lnbitsServer);
         Serial.println(endPoint);
@@ -284,7 +284,7 @@ void setup()
         webSocket.beginSSL(lnbitsServer.c_str(), 443, test.c_str());
         webSocket.onEvent(webSocketEvent);
         webSocket.setReconnectInterval(1000);
-        Serial.println("Init websocket complate");
+        Serial.println("Init websocket complete");
     }
 }
 
@@ -296,7 +296,7 @@ void loop()
     if (canBeInitialized)
     {
         while (paid == false)
-        {
+        {   
             webSocket.loop();
             if (paid)
             {
