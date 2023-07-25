@@ -291,7 +291,7 @@ void setup()
 void loop()
 {
     payloadStr = "";
-    delay(2000);
+    delay(200);
     canBeInitialized = lnbitsIsConfigured();
     if (canBeInitialized)
     {
